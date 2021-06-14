@@ -1,6 +1,7 @@
 import {
     Scene, Color, LoadingManager, AxesHelper, AmbientLight
 } from 'three';
+import Skybox from './Skybox';
 import Renderer from './Renderer';
 import Camera from './Camera';
 import Grid from './Grid';
@@ -50,6 +51,8 @@ export default class Main {
         this.modelR2D2.load(r2d2Path)
         this.modelR2D2.setPosition(100, 50)
 
+        this.skybox = new Skybox(this.scene);
+        this.grid = new Grid(this.scene)
         this.render();
     }
 
