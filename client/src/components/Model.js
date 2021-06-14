@@ -25,7 +25,7 @@ export default class Model {
                 this.container.add(this.mesh)
                 this.container.position.y = 23.65
                 this.scene.add(this.container);
-                console.log(this.geometry.animations) // tu powinny być widoczne animacje
+                console.log(this.geometry.animations, this.textures) // tu powinny być widoczne animacje
             },
         );
     }
