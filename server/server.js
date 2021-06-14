@@ -12,3 +12,15 @@ const io = socket(server);
 io.on("connection", function (socket) {
     console.log("Made socket connection");
 });
+// MongoDB
+const mongoose = require('mongoose');
+const CONNECTION_URI =  require('./credentials.js');
+console.log(CONNECTION_URI);
+mongoose.connect(CONNECTION_URI, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true
+}).then(() => {
+    console.log("MongoDB Connected");
+}).catch(err => {
+    console.error(err);
+})
