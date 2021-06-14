@@ -1,6 +1,7 @@
 import {
     Scene, Color,
 } from 'three';
+import Skybox from './Skybox';
 import Renderer from './Renderer';
 import Camera from './Camera';
 import Grid from './Grid';
@@ -18,7 +19,7 @@ export default class Main {
         this.camera = new Camera(75, this.width, this.height)
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.camera.position.set(10, 50, 10)
-
+        this.skybox = new Skybox(this.scene);
         this.grid = new Grid(this.scene)
         this.render();
     }
