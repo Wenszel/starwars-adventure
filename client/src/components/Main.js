@@ -61,7 +61,12 @@ export default class Main {
     }
 
     render() {
-        if(this.deathStar.model) this.deathStar.model.rotation.x+=0.005;
+            
+        if(this.deathStar.shooting) {
+            this.deathStar.model.rotate();
+        }else{
+            this.deathStar.generateLaser();
+        }
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render.bind(this));
     }
