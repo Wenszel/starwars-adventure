@@ -1,24 +1,17 @@
 import { WebGLRenderer } from 'three';
 
-export default class Renderer {
-    constructor(scene, container) {
+export default class Renderer extends WebGLRenderer {
+    constructor(container) {
+        super({ antialias: true })
 
-        this.scene = scene;
-        this.container = container;
-        this.threeRenderer = new WebGLRenderer({ antialias: true });
-        this.threeRenderer.setClearColor(0xffffff);
-        this.container.appendChild(this.threeRenderer.domElement);
+        this.container = container
+        this.container.appendChild(this.domElement);
         this.updateSize();
 
         document.addEventListener('DOMContentLoaded', () => this.updateSize(), false);
         window.addEventListener('resize', () => this.updateSize(), false);
     }
-
     updateSize() {
-        this.threeRenderer.setSize(window.innerWidth, window.innerHeight);
-    }
-
-    render(scene, camera) {
-        this.threeRenderer.render(scene, camera);
+        this.setSize(window.innerWidth, window.innerHeight);
     }
 }

@@ -1,5 +1,4 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
 module.exports = {
     entry: './src/index.js',
     output: {
@@ -8,19 +7,22 @@ module.exports = {
     },
     devtool: "source-map",
     mode: 'development',
+    devServer: {
+        port: 8080
+    },
     plugins: [
         new HtmlWebpackPlugin({
             hash: true,
             filename: 'index.html',
+            title: "page title",
             template: './src/index.html',
+            h1: "h1",
+            h2: "h2"
+
         })
     ],
     module: {
         rules: [
-            {
-                test: /\.(md2)$/i,
-                type: 'asset/resource',
-            },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
@@ -34,11 +36,12 @@ module.exports = {
                         name: 'images/[hash]-[name].[ext]'
                     }
                 }]
-            }
+            },
+            {
+                test: /\.(md2)$/i,
+                type: 'asset/resource',
+             }
         ]
     },
-    
-    devServer: {
-        port: 8080
-    },
+
 };

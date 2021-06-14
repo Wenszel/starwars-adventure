@@ -1,0 +1,27 @@
+{
+  "name": "threejs-portal",
+  "version": "1.0.0",
+  "description": "super projekt na super przedmiot",
+  "main": "index.js",
+  "dependencies": {
+    "webpack-cli": "^4.7.2",
+    "webpack": "^5.38.1",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --progress --watch",
+    "server": "webpack serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wenszel/threejs-portal.git"
+  },
+  "author": "bs & ws",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wenszel/threejs-portal/issues"
+  },
+  "homepage": "https://github.com/Wenszel/threejs-portal#readme"
+}
