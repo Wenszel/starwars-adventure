@@ -9,13 +9,18 @@ const server = app.listen(PORT, () => {
 });
 app.get("/", (req, res) => res.sendFile(path.join(__dirname,"/public/index.html")))
 const io = require('socket.io')(server);
-let roomNumber = 1;
 io.on("connection", function (socket) {
-    const room = io.sockets.adapter.rooms.get(`room-${roomNumber}`)?.size;
-    if(room > 1) roomNumber++;
+    let roomNumber = 1;
+    // Gets room based on roomNumber
+    let room = io.sockets.adapter.rooms.get(`room-${roomNumber}`);
+    // Looks for empty room / room with only one player
+    while(room?.size > 1) {
+        roomNumber++;
+        room = io.sockets.adapter.rooms.get(`room-${roomNumber}`);
+    }
     socket.join(`room-${roomNumber}`);
     //Send this event to everyone in the room.
-    io.sockets.in(`room-${roomNumber}`).emit('connectToRoom', `You are in room no. ${roomNumber}`);
+    io.sockets.in(`room-${roomNumber}`).emit('connectToRoom', {roomNumber: roomNumber});
 });
 
 // MongoDB

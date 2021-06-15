@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+    background-color: grey;
+}
+#room-id {
+    text-align: center;
+}
+.darth{
+    background-color: #870C0C;
+}
+.vs{
+    font-weight: 900;
+    font-size: 50px; 
+}
+.r2d2{
+    background-color: #00007F;
+}
+.player-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:500px;
+    height:400px;
+}
+.cards{
+    display: flex;
+    flex-direction: row;
+}
+img {
+    height: 300px;
+}
