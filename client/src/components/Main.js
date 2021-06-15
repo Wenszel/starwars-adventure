@@ -17,8 +17,6 @@ import vaderTex from "./models/vader/textures.jpg"
 import r2d2Path from "./models/r2d2/tris.md2"
 import r2d2Tex from "./models/r2d2/textures.jpg"
 
-import Animation from './Animations';
-
 import Box from './Box';
 
 export default class Main {
@@ -28,7 +26,6 @@ export default class Main {
         this.axes = new AxesHelper(1000)
         this.container = container;
         this.scene = new Scene();
-        this.grid = new Grid(this.scene)
         this.scene.add(this.axes)
         //tło sceny
         this.scene.background = new Color(0xffffff);
@@ -57,8 +54,7 @@ export default class Main {
         this.skybox = new Skybox(this.scene);
         this.grid = new Grid(this.scene)
 
-        this.box = new Box(this.scene, this.manager, vaderTex, vaderPath)
-
+        this.box = new Box(this.scene, this.manager, vaderTex, vaderPath, true)
 
         this.render();
     }

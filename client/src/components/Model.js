@@ -9,7 +9,6 @@ export default class Model {
         this.geometry = null
         this.textures = texture
         this.box = box
-        this.container = new Object3D()
     }
 
     load(path) {
@@ -23,9 +22,8 @@ export default class Model {
                     map: new TextureLoader().load(this.textures), // dowolny plik png, jpg
                     morphTargets: true // animowanie materiału modelu
                 }))
-                this.container.add(this.mesh)
-                this.container.position.y = 23.65
-                this.box.add(this.container)
+                this.mesh.position.y = 23.65
+                this.box.add(this.mesh)
                 console.log(this.geometry.animations, this.textures) // tu powinny być widoczne animacje
             },
         );
