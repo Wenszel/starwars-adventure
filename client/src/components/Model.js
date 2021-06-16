@@ -12,25 +12,21 @@ export default class Model {
     }
 
     load(path) {
-
-        // Manager przekazany do loadera, pozwala na określenie czy model już się załadował, w klasie Main
         new MD2Loader(this.manager).load(
             path,
             geometry => {
                 this.geometry = geometry;
                 this.mesh = new Mesh(geometry, new MeshPhongMaterial({
-                    map: new TextureLoader().load(this.textures), // dowolny plik png, jpg
-                    morphTargets: true // animowanie materiału modelu
+                    map: new TextureLoader().load(this.textures), 
+                    morphTargets: true
                 }))
                 this.mesh.position.y = 23.65
                 this.box?.add(this.mesh)
-                
-                console.log(this.geometry.animations, this.textures) // tu powinny być widoczne animacje
             },
         );
     }
 
     unload() {
-        this.scene.remove(this.mesh); // ew funkcja do usunięcia modelu ze sceny
+        this.scene.remove(this.mesh);
     }
 }

@@ -2,3 +2,18 @@ body{
     margin: 0 !important;
     padding: 0 !important;
 }
+#timer{
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    right: 0;
+    font-size: 3em;
+    color: white;
+    font-family: 'Inconsolata', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    opacity: 0.7;
+
+}

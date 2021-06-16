@@ -20,6 +20,7 @@ import r2d2Tex from "./models/r2d2/textures.jpg"
 
 import Box from './Box';
 
+import Timer from './Timer';
 export default class Main {
     constructor(container) {
 
@@ -32,7 +33,7 @@ export default class Main {
         this.scene.background = new Color(0xffffff);
 
         //światło
-        this.light = new AmbientLight(0x404040); // soft white light
+        this.light = new AmbientLight(0x404040, 3); // soft white light
         this.scene.add(this.light);
 
         //managery ,renderer
@@ -69,6 +70,7 @@ export default class Main {
         // this.box = new Box(this.scene, this.manager, vaderTex, vaderPath, true)
         this.box = new Box(this.scene, this.manager, r2d2Tex, r2d2Path, false)
 
+        this.timer = new Timer()
         this.render();
     }
 

@@ -70,8 +70,8 @@ export default class Box {
                         Config.canMove = false
                         Config.played = false
                         setTimeout(() => {
-                            const {x, y, z} = this.model.mesh.position;
-                            this.scene.deathStar.setLaserPosition([x,y,z]);
+                            const { x, y, z } = this.model.mesh.position;
+                            this.scene.deathStar.setLaserPosition([x, y, z]);
                             this.scene.deathStar.startLaser();
                             this.scene.deathStar.isLaserOn = true;
                         }, 1000)
@@ -86,6 +86,29 @@ export default class Box {
                             this.scene.deathStar.stopLaser();
                         }, 2700)
                     }
+                }
+            } else {
+                //getting out of map
+                if (Config.played) {
+                    this.animation.playAnim(this.stand)
+                    Config.canMove = false
+                    Config.played = false
+                    setTimeout(() => {
+                        const { x, y, z } = this.model.mesh.position;
+                        this.scene.deathStar.setLaserPosition([x, y, z]);
+                        this.scene.deathStar.startLaser();
+                        this.scene.deathStar.isLaserOn = true;
+                    }, 1000)
+                    setTimeout(() => {
+                        this.animation.playAnim(this.death);
+                    }, 2000)
+                    setTimeout(() => {
+                        this.model.mesh.position.set(0, 23.65, 0);
+                        Config.canMove = true;
+                        Config.played = true;
+                        this.scene.deathStar.isLaserOn = false;
+                        this.scene.deathStar.stopLaser();
+                    }, 2700)
                 }
             }
         }
