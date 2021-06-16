@@ -2,13 +2,13 @@ import { MD2Loader } from './MD2Loader';
 import { Mesh, TextureLoader, MeshPhongMaterial, Object3D } from "three"
 
 export default class Model {
-    constructor(scene, manager, texture) {
+    constructor(scene, manager, texture, box) {
         this.scene = scene;
         this.mesh = null;
         this.manager = manager;
         this.geometry = null
         this.textures = texture
-        this.container = new Object3D()
+        this.box = box
     }
 
     load(path) {
@@ -22,17 +22,11 @@ export default class Model {
                     map: new TextureLoader().load(this.textures), // dowolny plik png, jpg
                     morphTargets: true // animowanie materiału modelu
                 }))
-                this.container.add(this.mesh)
-                this.container.position.y = 23.65
-                this.scene.add(this.container);
-                console.log(this.geometry.animations) // tu powinny być widoczne animacje
+                this.mesh.position.y = 23.65
+                this.box.add(this.mesh)
+                console.log(this.geometry.animations, this.textures) // tu powinny być widoczne animacje
             },
         );
-    }
-
-    setPosition(x, z) {
-        this.container.position.z = x
-        this.container.position.y = z
     }
 
     unload() {
