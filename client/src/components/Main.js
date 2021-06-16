@@ -7,16 +7,7 @@ import DeathStar from './DeathStar';
 import Skybox from './Skybox';
 import Renderer from './Renderer';
 import Camera from './Camera';
-
 import Grid from './Grid';
-
-import Model from './Model';
-
-import vaderPath from './models/vader/tris.md2'
-import vaderTex from "./models/vader/textures.jpg"
-
-import r2d2Path from "./models/r2d2/tris.md2"
-import r2d2Tex from "./models/r2d2/textures.jpg"
 
 import Box from './Box';
 
@@ -53,22 +44,13 @@ export default class Main {
         this.camera.position.set(10, 50, 10)
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-        //model vadera
-        this.modelVader = new Model(this.scene, this.manager, vaderTex)
-        this.modelVader.load(vaderPath)
-
-        //model r2d2
-        this.modelR2D2 = new Model(this.scene, this.manager, r2d2Tex)
-        this.modelR2D2.load(r2d2Path)
-
         // DeathStar model
         this.deathStar = new DeathStar(this.scene);
 
         this.skybox = new Skybox(this.scene);
         this.grid = new Grid(this.scene)
 
-        // this.box = new Box(this.scene, this.manager, vaderTex, vaderPath, true)
-        this.box = new Box(this.scene, this.manager, r2d2Tex, r2d2Path, false)
+        this.box = new Box(this.scene, this.manager, true)
 
         this.timer = new Timer()
         this.render();

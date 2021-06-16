@@ -6,25 +6,35 @@ import Floor from "./Floor";
 import Animation from './Animations';
 import Keyboard from './Keyboard';
 import Config from './Config';
+
+import vaderPath from './models/vader/tris.md2'
+import vaderTex from "./models/vader/textures.jpg"
+
+import r2d2Path from "./models/r2d2/tris.md2"
+import r2d2Tex from "./models/r2d2/textures.jpg"
 export default class Box {
-    constructor(scene, manager, modelTex, modelPath, modelType) {
+    constructor(scene, manager, modelType) {
         this.box = new Group()
         this.scene = scene
         this.manager = manager
-
-        this.modelTex = modelTex
-        this.modelPath = modelPath
         this.modelType = modelType
 
+        //MODELE
         if (this.modelType) {
+            this.modelTex = vaderTex
+            this.modelPath = vaderPath
             this.stand = "Stand"
             this.run = "Run"
             this.death = "Crdeath"
         } else {
+            this.modelTex = r2d2Tex
+            this.modelPath = r2d2Path
             this.stand = "stand"
             this.run = "run"
             this.death = "crdeath"
         }
+        this.model = new Model(this.scene, this.manager, this.modelTex)
+        this.model.load(this.modelPath)
         this.raycaster = new Raycaster()
         this.vector = new Vector3()
         this.path = []
@@ -53,7 +63,7 @@ export default class Box {
         if (this.animation) this.animation.update(delta)
         if (Config.keyboardLoaded)
             this.keyboard.move()
-        if ((Config.floorLoaded) && (this.model.mesh)) {
+        if ((Config.floorLoaded) && (this.model.mesh) && (Config.cubesLoaded)) {
             let ray = new Ray(this.model.mesh.position, new Vector3(0, -50, 0).normalize())
             this.raycaster.ray = ray
             let intersects = this.raycaster.intersectObjects(this.floor.returnCubesArr());
@@ -87,7 +97,8 @@ export default class Box {
                         }, 2700)
                     }
                 }
-            } else {
+            }
+            else {
                 //getting out of map
                 if (Config.played) {
                     this.animation.playAnim(this.stand)

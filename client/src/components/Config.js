@@ -12,4 +12,6 @@ export default {
 
     //check if death animation has been played
     played: true,
+
+    cubesLoaded: false,
 }
