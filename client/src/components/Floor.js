@@ -1,7 +1,6 @@
 import {
     BoxGeometry, MeshBasicMaterial, Mesh
 } from 'three';
-import Config from './Config';
 export default class Floor {
     constructor(box, size) {
         this.box = box

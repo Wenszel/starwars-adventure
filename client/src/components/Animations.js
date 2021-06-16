@@ -18,8 +18,7 @@ export default class Animation {
     }
 
     update(delta) {
-        if (this.mixer) {
-            this.mixer.update(delta);
-        }
+        this.mixer?.update(delta);
+
     }
 }

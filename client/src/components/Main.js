@@ -66,17 +66,18 @@ export default class Main {
         this.skybox = new Skybox(this.scene);
         this.grid = new Grid(this.scene)
 
-        this.box = new Box(this.scene, this.manager, vaderTex, vaderPath, true)
+        // this.box = new Box(this.scene, this.manager, vaderTex, vaderPath, true)
+        this.box = new Box(this.scene, this.manager, r2d2Tex, r2d2Path, false)
 
         this.render();
     }
 
     render() {
         var delta = this.clock.getDelta();
-        this.box.update(delta)        
-        if(this.deathStar.shooting) {
+        this.box.update(delta)
+        if (this.deathStar.shooting) {
             this.deathStar.model.rotate();
-        }else{
+        } else {
             this.deathStar.generateLaser();
         }
         this.renderer.render(this.scene, this.camera);

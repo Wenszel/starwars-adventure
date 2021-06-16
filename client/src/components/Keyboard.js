@@ -23,10 +23,9 @@ export default class Keyboard {
     onKeyUp(event) {
         switch (event.keyCode) {
             case KEYS.up:
-                if (Config.played) {
-                    Config.moveForward = false;
-                    this.animation.playAnim(this.stand)
-                }
+
+                Config.moveForward = false;
+                this.animation.playAnim(this.stand)
                 break;
 
             case KEYS.left:

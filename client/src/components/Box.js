@@ -61,15 +61,22 @@ export default class Box {
             if (intersects[0]) {
                 if (this.path.includes(intersects[0].object))
                     intersects[0].object.material.color.setHex(0x00ff00)
+
                 else {
+                    //collision
                     intersects[0].object.material.color.setHex(0xff0000)
                     if (Config.played) {
-                        this.animation.playAnim(this.death)
+                        this.animation.playAnim(this.stand)
                         Config.canMove = false
                         Config.played = false
-                        this.model.mesh.position.set(0, 23.65, 0)
-                        Config.canMove = true
-                        Config.played = true
+                        setTimeout(() => {
+                            this.animation.playAnim(this.death)
+                        }, 1000)
+                        setTimeout(() => {
+                            this.model.mesh.position.set(0, 23.65, 0)
+                            Config.canMove = true
+                            Config.played = true
+                        }, 5000)
                     }
                 }
             }

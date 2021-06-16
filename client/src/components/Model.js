@@ -23,7 +23,8 @@ export default class Model {
                     morphTargets: true // animowanie materiału modelu
                 }))
                 this.mesh.position.y = 23.65
-                this.box.add(this.mesh)
+                this.box?.add(this.mesh)
+                
                 console.log(this.geometry.animations, this.textures) // tu powinny być widoczne animacje
             },
         );
