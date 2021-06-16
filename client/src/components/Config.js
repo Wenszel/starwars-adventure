@@ -16,5 +16,11 @@ export default {
     cubesLoaded: false,
 
     //check if the alert was shown and do not show it again (render)
-    gameEndAlert: true
+    gameEndAlert: true,
+
+    //show path color
+    color: true,
+
+    //block player when path is being shown
+    playerBlocked: false
 }

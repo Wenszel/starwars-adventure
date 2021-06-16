@@ -74,7 +74,7 @@ export default class Keyboard {
             if (Config.rotateRight) {
                 this.modelMesh.rotation.y -= 0.05
             }
-            if ((Config.moveForward) && (Config.canMove)) {
+            if ((Config.moveForward) && (Config.canMove) && (!Config.playerBlocked)) {
                 this.modelMesh.translateX(0.5)
             }
         }

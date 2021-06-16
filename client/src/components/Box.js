@@ -69,7 +69,19 @@ export default class Box {
             let ray = new Ray(this.model.mesh.position, new Vector3(0, -50, 0).normalize())
             this.raycaster.ray = ray
             let intersects = this.raycaster.intersectObjects(this.floor.returnCubesArr());
-
+            if (Config.color) {
+                Config.playerBlocked = true
+                this.path.forEach(element => {
+                    element.material.color.setHex(0xffffaa)
+                });
+            }
+            setTimeout(() => {
+                this.path.forEach(element => {
+                    element.material.color.setHex(0x0000ff)
+                    Config.color = false
+                    Config.playerBlocked = false
+                });
+            }, 10000)
             if (intersects[0]) {
                 if (this.path.includes(intersects[0].object)) {
                     intersects[0].object.material.color.setHex(0x00ff00)
