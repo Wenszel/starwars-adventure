@@ -75,10 +75,10 @@ export default class Main {
     render() {
         var delta = this.clock.getDelta();
         this.box.update(delta)
-        if (this.deathStar.shooting) {
-            this.deathStar.model.rotate();
-        } else {
+        if (this.deathStar.isLaserOn) {
             this.deathStar.generateLaser();
+        } else {
+            this.deathStar?.rotateModel();
         }
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render.bind(this));
