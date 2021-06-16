@@ -8,6 +8,9 @@ window.onload = function() {
         socket.on('connect', function(){
             socket.emit("newUser", nick);
         })
+        socket.on('redirect', function(destination) {
+            window.location.href = destination;
+        });
         socket.on('connectToRoom',function(data) {
             if(data.nick1){
                 document.getElementById("player1-nick").innerHTML = data.nick1;
@@ -25,7 +28,9 @@ window.onload = function() {
                 vs.innerHTML = "";
                 const a = document.createElement("a");
                 a.innerHTML = "Start"
-                a.href = `/game?room=${data.roomNumber}`
+                a.onclick = () => {
+                    socket.emit("forceRedirect");
+                }
                 vs.appendChild(a);
             }else{
                 const vs = document.querySelector(".vs");

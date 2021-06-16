@@ -1,15 +1,20 @@
 const express = require('express');
 const app = express();
-
 const path = require('path');
 app.use(express.static("public"));
+app.use(express.static("public/dist"));
 const PORT = 3000 || env.PORT;
 const server = app.listen(PORT, () => { 
     console.log("server running on port: " + PORT);
 });
-app.get("/", (req, res) => res.sendFile(path.join(__dirname,"/public/index.html")))
 const io = require('socket.io')(server);
-app.get("/game", (req, res) => res.sendFile(path.join(__dirname,"/public/game.html")))
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname,"/public/index.html"))
+});
+
+app.get("/game", (req, res) => {
+    res.sendFile(path.join(__dirname,"public/dist/index.html"))
+});
 
 let allClients = [];
 io.sockets.on("connection", function (socket) {
@@ -38,6 +43,10 @@ io.sockets.on("connection", function (socket) {
         allClients[allClients.findIndex(i => i.socket === socket)].roomNumber = roomNumber;
         //Send this event to everyone in the room.
         io.sockets.in(`room-${roomNumber}`).emit('connectToRoom', {roomNumber: roomNumber, nick1: room.playersName[0], nick2: room.playersName[1], start: room.start});
+    });
+    socket.on("forceRedirect", function(){
+        let client = allClients.find( i => i.socket === socket);
+        io.sockets.in(`room-${client.roomNumber}`).emit('redirect', `/game?room=${client.roomNumber}`);
     });
     socket.on("disconnect", function(){
         let client = allClients.find( i => i.socket === socket);
