@@ -9,18 +9,41 @@ const server = app.listen(PORT, () => {
 });
 app.get("/", (req, res) => res.sendFile(path.join(__dirname,"/public/index.html")))
 const io = require('socket.io')(server);
-io.on("connection", function (socket) {
-    let roomNumber = 1;
-    // Gets room based on roomNumber
-    let room = io.sockets.adapter.rooms.get(`room-${roomNumber}`);
-    // Looks for empty room / room with only one player
-    while(room?.size > 1) {
-        roomNumber++;
+
+
+let allClients = [];
+io.sockets.on("connection", function (socket) {
+    allClients.push({socket: socket});
+    socket.on("newUser", function (data) {
+        socket.playerName = data;
+        let roomNumber = 1;
+        // Gets room based on roomNumber
+        let room = io.sockets.adapter.rooms.get(`room-${roomNumber}`);
+        // Looks for empty room / room with only one player
+        while(room?.size > 1) {
+            roomNumber++;
+            room = io.sockets.adapter.rooms.get(`room-${roomNumber}`);
+        }
+        socket.join(`room-${roomNumber}`);
         room = io.sockets.adapter.rooms.get(`room-${roomNumber}`);
-    }
-    socket.join(`room-${roomNumber}`);
-    //Send this event to everyone in the room.
-    io.sockets.in(`room-${roomNumber}`).emit('connectToRoom', {roomNumber: roomNumber});
+        if(room){
+            if(room.playersName){
+                room.playersName = [...room.playersName, socket.playerName]
+            }else{
+                room.playersName = [socket.playerName];
+            }
+        }
+        allClients[allClients.findIndex(i => i.socket === socket)].roomNumber = roomNumber;
+        //Send this event to everyone in the room.
+        io.sockets.in(`room-${roomNumber}`).emit('connectToRoom', {roomNumber: roomNumber, nick1: room?.playersName[0], nick2: room?.playersName[1]});
+    });
+    socket.on("disconnect", function(){
+        let client = allClients.find( i => i.socket === socket);
+        let room = io.sockets.adapter.rooms.get(`room-${client.roomNumber}`);
+        room?.playersName.splice(room.playersName.indexOf(socket.playerName), 1);
+        io.sockets.in(`room-${client.roomNumber}`).emit('connectToRoom', {roomNumber: client.roomNumber, nick1: room?.playersName[0], nick2: room?.playersName[1]});
+    });
+   
 });
 
 // MongoDB
