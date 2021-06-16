@@ -1,20 +1,25 @@
 import {
-    Scene, Color, LoadingManager, AxesHelper, AmbientLight
+    Scene, Color, LoadingManager, AxesHelper, AmbientLight, Clock
 } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import Stats from 'three/examples/jsm/libs/stats.module.js';
 import DeathStar from './DeathStar';
 import Skybox from './Skybox';
 import Renderer from './Renderer';
 import Camera from './Camera';
-import Grid from './Grid';
-import Model from './Model';
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import Skybox from './Skybox';
+import Grid from './Grid';
+
+import Model from './Model';
 
 import vaderPath from './models/vader/tris.md2'
 import vaderTex from "./models/vader/textures.jpg"
 
 import r2d2Path from "./models/r2d2/tris.md2"
 import r2d2Tex from "./models/r2d2/textures.jpg"
+
+import Box from './Box';
 
 export default class Main {
     constructor(container) {
@@ -23,8 +28,7 @@ export default class Main {
         this.axes = new AxesHelper(1000)
         this.container = container;
         this.scene = new Scene();
-        this.grid = new Grid(this.scene)
-
+        this.scene.add(this.axes)
         //tło sceny
         this.scene.background = new Color(0xffffff);
 
@@ -34,7 +38,13 @@ export default class Main {
 
         //managery ,renderer
         this.renderer = new Renderer(container);
-        this.manager = new LoadingManager()
+        this.manager = new LoadingManager();
+        this.manager2 = new LoadingManager();
+        // this.manager2 = new LoadingManager();
+
+        this.stats = new Stats();
+        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb
+        this.clock = new Clock()
 
         //kamera
         this.width = this.renderer.domElement.width;
@@ -57,11 +67,15 @@ export default class Main {
 
         this.skybox = new Skybox(this.scene);
         this.grid = new Grid(this.scene)
+
+        this.box = new Box(this.scene, this.manager, vaderTex, vaderPath, true)
+
         this.render();
     }
 
     render() {
-            
+        var delta = this.clock.getDelta();
+        this.box.update(delta)        
         if(this.deathStar.shooting) {
             this.deathStar.model.rotate();
         }else{
