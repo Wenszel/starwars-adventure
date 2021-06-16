@@ -8,7 +8,6 @@ import Skybox from './Skybox';
 import Renderer from './Renderer';
 import Camera from './Camera';
 
-import Skybox from './Skybox';
 import Grid from './Grid';
 
 import Model from './Model';
@@ -60,7 +59,6 @@ export default class Main {
         //model r2d2
         this.modelR2D2 = new Model(this.scene, this.manager, r2d2Tex)
         this.modelR2D2.load(r2d2Path)
-        this.modelR2D2.setPosition(100, 50)
 
         // DeathStar model
         this.deathStar = new DeathStar(this.scene);

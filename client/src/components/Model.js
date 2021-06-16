@@ -29,11 +29,6 @@ export default class Model {
         );
     }
 
-    setPosition(x, z) {
-        this.container.position.z = x
-        this.container.position.y = z
-    }
-
     unload() {
         this.scene.remove(this.mesh); // ew funkcja do usunięcia modelu ze sceny
     }
