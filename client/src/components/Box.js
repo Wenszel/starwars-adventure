@@ -6,7 +6,7 @@ import Floor from "./Floor";
 import Animation from './Animations';
 import Keyboard from './Keyboard';
 import Config from './Config';
-
+import Timer from './Timer';
 import vaderPath from './models/vader/tris.md2'
 import vaderTex from "./models/vader/textures.jpg"
 
@@ -18,7 +18,7 @@ export default class Box {
         this.scene = scene
         this.manager = manager
         this.modelType = modelType
-
+        this.timer = new Timer()
         //MODELE
         if (this.modelType) {
             this.modelTex = vaderTex
@@ -38,6 +38,7 @@ export default class Box {
         this.raycaster = new Raycaster()
         this.vector = new Vector3()
         this.path = []
+        this.test = []
         this.loadModel()
     }
 
@@ -59,6 +60,7 @@ export default class Box {
         };
         this.createFloor()
     }
+
     update(delta) {
         if (this.animation) this.animation.update(delta)
         if (Config.keyboardLoaded)
@@ -69,8 +71,19 @@ export default class Box {
             let intersects = this.raycaster.intersectObjects(this.floor.returnCubesArr());
 
             if (intersects[0]) {
-                if (this.path.includes(intersects[0].object))
+                if (this.path.includes(intersects[0].object)) {
                     intersects[0].object.material.color.setHex(0x00ff00)
+                    if (intersects[0].object === this.path[this.path.length - 2]) {
+                        this.timer.stop()
+                        if (Config.gameEndAlert) {
+                            alert("Koniec")
+                            Config.gameEndAlert = false
+                            Config.canMove = false
+                            Config.played = false
+                            this.animation.playAnim(this.stand);
+                        }
+                    }
+                }
 
                 else {
                     //collision
@@ -129,7 +142,10 @@ export default class Box {
     createFloor() {
         this.floor = new Floor(this.box, 10)
         //tablica ścieżki
+
         this.path = this.floor.returnPath()
+        // this.path = this.test.getJSON()
+        console.log(this.path[9])
         Config.floorLoaded = true
         this.scene.add(this.box)
     }

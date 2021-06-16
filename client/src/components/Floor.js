@@ -20,11 +20,12 @@ export default class Floor {
                 cube.position.y = -3
                 this.box.add(cube)
                 this.cubesArr.push(cube)
-                this.pathArr.push(cube)
+                //test path (works with every this.pathArr)
+                if ((i < 1) && (j < 5))
+                    this.pathArr.push(cube)
             }
         }
         Config.cubesLoaded = true
-
 
         let planeGeometry = new PlaneGeometry(900, 900)
         let planeMaterial = new MeshBasicMaterial({ color: 0xffffff, side: DoubleSide })

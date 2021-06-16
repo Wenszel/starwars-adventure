@@ -52,7 +52,7 @@ export default class Main {
 
         this.box = new Box(this.scene, this.manager, true)
 
-        this.timer = new Timer()
+        
         this.render();
     }
 

@@ -14,4 +14,7 @@ export default {
     played: true,
 
     cubesLoaded: false,
+
+    //check if the alert was shown and do not show it again (render)
+    gameEndAlert: true
 }

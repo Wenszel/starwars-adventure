@@ -23,7 +23,10 @@ export default class Timer {
     }
     stop() {
         clearInterval(this.interval)
-        this.stopwatch.innerText = `${this.minutes}:${this.seconds}`
+        if (this.minutes < 10)
+            this.stopwatch.innerText = `0${this.minutes}:${this.seconds}`
+        else
+            this.stopwatch.innerText = `${this.minutes}:${this.seconds}`
     }
     reset() {
         clearInterval(this.interval)
