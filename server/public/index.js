@@ -4,7 +4,6 @@ window.onload = function() {
         nick = prompt("Podaj nick");
     }
     if(nick){
-        console.log("jebac");
         const socket = io();
         socket.on('connect', function(){
             socket.emit("newUser", nick);
@@ -21,6 +20,17 @@ window.onload = function() {
                 document.getElementById("player2-nick").innerHTML = 'waiting...';
             }
             document.getElementById("room-id").innerHTML = `You are now at room no. ${data.roomNumber}`;
+            if(data.start) {
+                const vs = document.querySelector(".vs");
+                vs.innerHTML = "";
+                const a = document.createElement("a");
+                a.innerHTML = "Start"
+                a.href = `/game?room=${data.roomNumber}`
+                vs.appendChild(a);
+            }else{
+                const vs = document.querySelector(".vs");
+                vs.innerHTML = "vs";
+            }
         });
     }
 }

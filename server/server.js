@@ -9,7 +9,7 @@ const server = app.listen(PORT, () => {
 });
 app.get("/", (req, res) => res.sendFile(path.join(__dirname,"/public/index.html")))
 const io = require('socket.io')(server);
-
+app.get("/game", (req, res) => res.sendFile(path.join(__dirname,"/public/game.html")))
 
 let allClients = [];
 io.sockets.on("connection", function (socket) {
@@ -29,13 +29,15 @@ io.sockets.on("connection", function (socket) {
         if(room){
             if(room.playersName){
                 room.playersName = [...room.playersName, socket.playerName]
+                room.start = true;
             }else{
                 room.playersName = [socket.playerName];
+                room.start = false;
             }
         }
         allClients[allClients.findIndex(i => i.socket === socket)].roomNumber = roomNumber;
         //Send this event to everyone in the room.
-        io.sockets.in(`room-${roomNumber}`).emit('connectToRoom', {roomNumber: roomNumber, nick1: room?.playersName[0], nick2: room?.playersName[1]});
+        io.sockets.in(`room-${roomNumber}`).emit('connectToRoom', {roomNumber: roomNumber, nick1: room.playersName[0], nick2: room.playersName[1], start: room.start});
     });
     socket.on("disconnect", function(){
         let client = allClients.find( i => i.socket === socket);
@@ -43,7 +45,6 @@ io.sockets.on("connection", function (socket) {
         room?.playersName.splice(room.playersName.indexOf(socket.playerName), 1);
         io.sockets.in(`room-${client.roomNumber}`).emit('connectToRoom', {roomNumber: client.roomNumber, nick1: room?.playersName[0], nick2: room?.playersName[1]});
     });
-   
 });
 
 // MongoDB
