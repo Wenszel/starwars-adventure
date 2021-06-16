@@ -1,10 +1,10 @@
 import { BackSide, TextureLoader, MeshBasicMaterial, BoxGeometry, Mesh } from 'three';
-import bk from '../skybox/corona_bk.png';
-import dn from '../skybox/corona_dn.png';
-import ft from '../skybox/corona_ft.png';
-import lf from '../skybox/corona_lf.png';
-import rt from '../skybox/corona_rt.png';
-import up from '../skybox/corona_up.png';
+import bk from '../assets/skybox/corona_bk.png';
+import dn from '../assets/skybox/corona_dn.png';
+import ft from '../assets/skybox/corona_ft.png';
+import lf from '../assets/skybox/corona_lf.png';
+import rt from '../assets/skybox/corona_rt.png';
+import up from '../assets/skybox/corona_up.png';
 
 export default class Skybox {
     constructor(scene) {

@@ -3,6 +3,8 @@ import {
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
+import DeathStar from './DeathStar';
+import Skybox from './Skybox';
 import Renderer from './Renderer';
 import Camera from './Camera';
 
@@ -51,6 +53,18 @@ export default class Main {
         this.camera.position.set(10, 50, 10)
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
+        //model vadera
+        this.modelVader = new Model(this.scene, this.manager, vaderTex)
+        this.modelVader.load(vaderPath)
+
+        //model r2d2
+        this.modelR2D2 = new Model(this.scene, this.manager, r2d2Tex)
+        this.modelR2D2.load(r2d2Path)
+        this.modelR2D2.setPosition(100, 50)
+
+        // DeathStar model
+        this.deathStar = new DeathStar(this.scene);
+
         this.skybox = new Skybox(this.scene);
         this.grid = new Grid(this.scene)
 
@@ -61,8 +75,12 @@ export default class Main {
 
     render() {
         var delta = this.clock.getDelta();
-        this.box.update(delta)
-
+        this.box.update(delta)        
+        if(this.deathStar.shooting) {
+            this.deathStar.model.rotate();
+        }else{
+            this.deathStar.generateLaser();
+        }
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render.bind(this));
     }

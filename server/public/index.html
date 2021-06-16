@@ -6,9 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
-    <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <script src="./index.js"></script>
 </head>
 <body>
-    test
+    <h1 id="room-id"></h1>
+    <div class="cards">
+        <div class="player-card darth">
+            <h2 id="player1-nick"></h2>
+            <img src="images/darth.png" alt="darth" id="darth">
+        </div>
+        <div class="player-card vs">VS</div>
+        <div class="player-card r2d2">
+            <h2 id="player2-nick"></h2>
+            <img src="images/r2d2.png" alt="r2d2" id="r2d2">
+        </div>
+    </div>
 </body>
 </html>
