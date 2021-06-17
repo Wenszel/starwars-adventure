@@ -1,4 +1,24 @@
 window.onload = function() {
+    fetch('/ranking')
+    .then(response => response.json())
+    .then(data => {
+        const rankingOl = document.querySelector("#ranking > ol");
+        console.log(rankingOl);
+        data.sort(function(a, b){
+            if (a.time < b.time)
+                return -1
+            if (a.time > b.time)
+                return 1
+            return 0
+        })
+        data.forEach( (item, index) => {
+            if(index < 10){
+                const li = document.createElement("li");
+                li.innerHTML = item.player + " | " + msToTime(item.time);
+                rankingOl.appendChild(li);
+            }
+        });
+    });
     let nick;
     while(!nick){
         nick = prompt("Podaj nick");
@@ -39,3 +59,13 @@ window.onload = function() {
         });
     }
 }
+function msToTime(s) {
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+  
+    return hrs + ':' + mins + ':' + secs + '.' + ms;
+  }
