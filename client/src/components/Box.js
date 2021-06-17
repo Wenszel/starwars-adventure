@@ -35,7 +35,7 @@ export default class Box {
             this.run = "run"
             this.death = "crdeath"
         }
-        
+
         this.model = new Model(this.scene, this.manager, this.modelTex)
         this.model.load(this.modelPath)
         this.raycaster = new Raycaster()
@@ -93,6 +93,7 @@ export default class Box {
                     intersects[0].object.material.color.setHex(0x00ff00)
                     if (intersects[0].object.name === "[6,9]") {
                         this.timer.stop()
+                        this.timer.getTime()
                         if (Config.gameEndAlert) {
                             console.log(this.path)
                             console.log(intersects[0].object.name)

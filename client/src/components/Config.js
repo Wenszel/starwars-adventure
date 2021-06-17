@@ -26,5 +26,8 @@ export default {
     playerBlocked: false,
 
     //check if timer is already running
-    timerStarted: false
+    timerStarted: false,
+
+    //check if time has been returned
+    timeTaken: false
 }

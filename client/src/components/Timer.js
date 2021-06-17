@@ -1,3 +1,5 @@
+import Config from "./Config"
+
 export default class Timer {
     constructor() {
         this.stopwatch = document.getElementById('timer')
@@ -27,10 +29,16 @@ export default class Timer {
         else
             this.stopwatch.innerText = `${this.minutes}:${this.seconds}`
     }
-    reset() {
+    getTime() {
         clearInterval(this.interval)
-        this.minutes = 0
-        this.seconds = 0
-        this.stopwatch.innerText = `${this.minutes}:${this.seconds}`
+        let timerObject = {
+            minutes: this.minutes,
+            seconds: this.seconds
+        }
+        if (!Config.timeTaken) {
+            //time has stopped, send it to db
+            console.log(timerObject)
+            Config.timeTaken = true
+        }
     }
 }
