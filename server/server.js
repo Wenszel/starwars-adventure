@@ -81,7 +81,7 @@ mongoose.connect(CONNECTION_URI, {
 const ranking = require('./schemas/ranking')
 function saveScore(nick, time) {
     new ranking({
-        nick: nick,
+        player: nick,
         time: time
     }).save()
 }
