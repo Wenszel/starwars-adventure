@@ -7,11 +7,9 @@ import DeathStar from './DeathStar';
 import Skybox from './Skybox';
 import Renderer from './Renderer';
 import Camera from './Camera';
-import Grid from './Grid';
 
 import Box from './Box';
 
-import Timer from './Timer';
 export default class Main {
     constructor(container) {
 
@@ -31,7 +29,6 @@ export default class Main {
         this.renderer = new Renderer(container);
         this.manager = new LoadingManager();
         this.manager2 = new LoadingManager();
-        // this.manager2 = new LoadingManager();
 
         this.stats = new Stats();
         this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb
@@ -48,11 +45,8 @@ export default class Main {
         this.deathStar = new DeathStar(this.scene);
 
         this.skybox = new Skybox(this.scene);
-        this.grid = new Grid(this.scene)
-
         this.box = new Box(this.scene, this.manager, true)
 
-        
         this.render();
     }
 

@@ -3,7 +3,6 @@ export default class Timer {
         this.stopwatch = document.getElementById('timer')
         this.minutes = 0
         this.seconds = 0
-        this.start()
     }
     start() {
         this.interval = setInterval(() => {

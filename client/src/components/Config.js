@@ -10,6 +10,7 @@ export default {
     //check if floor is loaded to use raycaster
     floorLoaded: false,
 
+
     //check if death animation has been played
     played: true,
 
@@ -22,5 +23,8 @@ export default {
     color: true,
 
     //block player when path is being shown
-    playerBlocked: false
+    playerBlocked: false,
+
+    //check if timer is already running
+    timerStarted: false
 }

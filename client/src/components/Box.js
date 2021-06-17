@@ -7,11 +7,13 @@ import Animation from './Animations';
 import Keyboard from './Keyboard';
 import Config from './Config';
 import Timer from './Timer';
+
+
 import vaderPath from './models/vader/tris.md2'
 import vaderTex from "./models/vader/textures.jpg"
-
 import r2d2Path from "./models/r2d2/tris.md2"
 import r2d2Tex from "./models/r2d2/textures.jpg"
+
 export default class Box {
     constructor(scene, manager, modelType) {
         this.box = new Group()
@@ -33,12 +35,12 @@ export default class Box {
             this.run = "run"
             this.death = "crdeath"
         }
+        
         this.model = new Model(this.scene, this.manager, this.modelTex)
         this.model.load(this.modelPath)
         this.raycaster = new Raycaster()
         this.vector = new Vector3()
         this.path = []
-        this.test = []
         this.loadModel()
     }
 
@@ -80,14 +82,20 @@ export default class Box {
                     element.material.color.setHex(0x0000ff)
                     Config.color = false
                     Config.playerBlocked = false
+                    if (!Config.timerStarted) {
+                        this.timer.start()
+                        Config.timerStarted = true
+                    }
                 });
-            }, 10000)
+            }, 20000)
             if (intersects[0]) {
                 if (this.path.includes(intersects[0].object)) {
                     intersects[0].object.material.color.setHex(0x00ff00)
-                    if (intersects[0].object === this.path[this.path.length - 2]) {
+                    if (intersects[0].object.name === "[6,9]") {
                         this.timer.stop()
                         if (Config.gameEndAlert) {
+                            console.log(this.path)
+                            console.log(intersects[0].object.name)
                             alert("Koniec")
                             Config.gameEndAlert = false
                             Config.canMove = false
@@ -96,7 +104,6 @@ export default class Box {
                         }
                     }
                 }
-
                 else {
                     //collision
                     intersects[0].object.material.color.setHex(0xff0000)
@@ -119,7 +126,9 @@ export default class Box {
                             Config.played = true;
                             this.scene.deathStar.isLaserOn = false;
                             this.scene.deathStar.stopLaser();
+                            Config.color = true
                         }, 2700)
+
                     }
                 }
             }
@@ -156,8 +165,7 @@ export default class Box {
         //tablica ścieżki
 
         this.path = this.floor.returnPath()
-        // this.path = this.test.getJSON()
-        console.log(this.path[9])
+        // console.log(this.test.path1)
         Config.floorLoaded = true
         this.scene.add(this.box)
     }

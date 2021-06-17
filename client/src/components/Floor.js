@@ -2,13 +2,15 @@ import {
     BoxGeometry, MeshBasicMaterial, Mesh, PlaneGeometry, DoubleSide
 } from 'three';
 import Config from './Config';
+import Paths from './Paths';
 export default class Floor {
     constructor(box, size) {
         this.box = box
         this.size = size
         this.cubesArr = []
         this.pathArr = []
-
+        this.paths = Paths
+        this.pathNumber = Math.floor(Math.random() * 3);
         for (let i = 0; i < this.size; i++) {
             for (let j = 0; j < this.size; j++) {
                 let cubeGeometry = new BoxGeometry(80, 6, 80)
@@ -20,11 +22,9 @@ export default class Floor {
                 cube.position.y = -3
                 this.box.add(cube)
                 this.cubesArr.push(cube)
-                //test path (works with every this.pathArr)
-                if ((i < 1) && (j < 5))
-                    this.pathArr.push(cube)
             }
         }
+        this.randomPath()
         Config.cubesLoaded = true
 
         let planeGeometry = new PlaneGeometry(900, 900)
@@ -39,7 +39,12 @@ export default class Floor {
         this.pathArr.push(plane)
         this.cubesArr.push(plane)
     }
-
+    randomPath() {
+        this.cubesArr.forEach(element => {
+            if (Paths.returnPath(this.pathNumber).includes(element.name))
+                this.pathArr.push(element)
+        });
+    }
     returnCubesArr() {
         return this.cubesArr
     }
