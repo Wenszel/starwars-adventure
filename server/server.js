@@ -46,7 +46,7 @@ io.sockets.on("connection", function (socket) {
     });
     socket.on("forceRedirect", function(){
         let client = allClients.find( i => i.socket === socket);
-        io.sockets.in(`room-${client.roomNumber}`).emit('redirect', `/game?room=${client.roomNumber}`);
+        io.sockets.in(`room-${client.roomNumber}`).emit('redirect', `/game`);
     });
     socket.on("disconnect", function(){
         let client = allClients.find( i => i.socket === socket);
@@ -56,12 +56,12 @@ io.sockets.on("connection", function (socket) {
     });
     socket.on("win", function({nick, time}){
         saveScore(nick, time);
-        const index = allClients.findIndex(i => i.socket === socket)
-        io.to(allClients[index].id).emit('won', {nick,time});
-        if(index%2 === 0 && index !== 0){
-            io.to(allClients[index-1].id).emit('won', {nick,time});
+        const index = allClients.findIndex(i => i.socket.id === socket.id);
+        io.to(allClients[index].socket.id).emit('won', {nick: nick,time: time});
+        if(index%2 === 0){
+            io.to(allClients[index+1].socket.id).emit('won', {nick: nick,time: time});
         }else{
-            io.to(allClients[index+1].id).emit('won', {nick,time});
+            io.to(allClients[index-1].socket.id).emit('won', {nick: nick,time :time});
         }
     });
 });

@@ -99,7 +99,6 @@ export default class Box {
                         this.timer.getTime()
                         if (Config.gameEndAlert) {
                             //events after the game has ended
-                            alert("Koniec")
                             Config.gameEndAlert = false
                             Config.canMove = false
                             Config.played = false
