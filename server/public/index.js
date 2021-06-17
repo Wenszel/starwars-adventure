@@ -24,6 +24,7 @@ window.onload = function() {
         nick = prompt("Podaj nick");
     }
     if(nick){
+        sessionStorage.setItem("nick", nick);
         const socket = io();
         socket.on('connect', function(){
             socket.emit("newUser", nick);
@@ -41,6 +42,12 @@ window.onload = function() {
                 document.getElementById("player2-nick").innerHTML = data.nick2;
             }else{
                 document.getElementById("player2-nick").innerHTML = 'waiting...';
+            }
+            if(data.nick1 === nick){
+                sessionStorage.setItem("character", "vader");
+            }
+            if(data.nick2 ===nick){
+                sessionStorage.setItem("character", "r2d2");
             }
             document.getElementById("room-id").innerHTML = `You are now at room no. ${data.roomNumber}`;
             if(data.start) {
