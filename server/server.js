@@ -54,6 +54,16 @@ io.sockets.on("connection", function (socket) {
         room?.playersName.splice(room.playersName.indexOf(socket.playerName), 1);
         io.sockets.in(`room-${client.roomNumber}`).emit('connectToRoom', {roomNumber: client.roomNumber, nick1: room?.playersName[0], nick2: room?.playersName[1]});
     });
+    socket.on("win", function({nick, time}){
+        saveScore(nick, time);
+        const index = allClients.findIndex(i => i.socket === socket)
+        io.to(allClients[index].id).emit('won', {nick,time});
+        if(index%2 === 0 && index !== 0){
+            io.to(allClients[index-1].id).emit('won', {nick,time});
+        }else{
+            io.to(allClients[index+1].id).emit('won', {nick,time});
+        }
+    });
 });
 
 // MongoDB
@@ -72,7 +82,7 @@ const ranking = require('./schemas/ranking')
 function saveScore(nick, time) {
     new ranking({
         nick: nick,
-        tim: score
+        time: time
     }).save()
 }
 app.get("/ranking", (req, res) => {

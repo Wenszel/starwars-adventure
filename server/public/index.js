@@ -3,7 +3,6 @@ window.onload = function() {
     .then(response => response.json())
     .then(data => {
         const rankingOl = document.querySelector("#ranking > ol");
-        console.log(rankingOl);
         data.sort(function(a, b){
             if (a.time < b.time)
                 return -1

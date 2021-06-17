@@ -1,7 +1,8 @@
 import Config from "./Config"
 
 export default class Timer {
-    constructor() {
+    constructor(socket) {
+        this.socket = socket;
         this.stopwatch = document.getElementById('timer')
         this.minutes = 0
         this.seconds = 0
@@ -36,6 +37,8 @@ export default class Timer {
         if (!Config.timeTaken) {
             //time has stopped, send it to db
             Config.timeTaken = true
+            this.socket.won(ms);
         }
+        
     }
 }

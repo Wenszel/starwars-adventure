@@ -1,6 +1,7 @@
 import {
     Group, Raycaster, Ray, ArrowHelper, Vector3
 } from 'three';
+import SocketConnector from './SocketConnector'
 import Model from './Model';
 import Floor from "./Floor";
 import Animation from './Animations';
@@ -15,11 +16,12 @@ import r2d2Tex from "./models/r2d2/textures.jpg"
 
 export default class Box {
     constructor(scene, manager, modelType, size, paths) {
+        this.socketConnector = new SocketConnector();
         this.box = new Group()
         this.scene = scene
         this.manager = manager
         this.modelType = modelType
-        this.timer = new Timer()
+        this.timer = new Timer(this.socketConnector)
         this.size = size
         this.paths = paths
         //MODELE
