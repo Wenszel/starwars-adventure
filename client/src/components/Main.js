@@ -9,6 +9,7 @@ import Renderer from './Renderer';
 import Camera from './Camera';
 
 import Box from './Box';
+import Config from './Config';
 
 export default class Main {
     constructor(container, size, paths) {

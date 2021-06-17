@@ -31,13 +31,10 @@ export default class Timer {
     }
     getTime() {
         clearInterval(this.interval)
-        let timerObject = {
-            minutes: this.minutes,
-            seconds: this.seconds
-        }
+        let ms = this.minutes * 60000 + this.seconds * 1000
+
         if (!Config.timeTaken) {
             //time has stopped, send it to db
-            console.log(timerObject)
             Config.timeTaken = true
         }
     }

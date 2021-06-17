@@ -96,8 +96,7 @@ export default class Box {
                         this.timer.stop()
                         this.timer.getTime()
                         if (Config.gameEndAlert) {
-                            console.log(this.path)
-                            console.log(intersects[0].object.name)
+                            //events after the game has ended
                             alert("Koniec")
                             Config.gameEndAlert = false
                             Config.canMove = false
@@ -166,7 +165,7 @@ export default class Box {
         this.floor = new Floor(this.box, this.size, this.paths)
         // path array
         this.path = this.floor.returnPath()
- 
+
         Config.floorLoaded = true
         this.scene.add(this.box)
     }
