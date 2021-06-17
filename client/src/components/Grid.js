@@ -9,5 +9,4 @@ export default class Grid {
         this.gridHelper = new GridHelper(5000, 500)
         this.scene.add(this.gridHelper)
     }
-
 }

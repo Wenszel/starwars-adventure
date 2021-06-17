@@ -11,21 +11,24 @@ import Camera from './Camera';
 import Box from './Box';
 
 export default class Main {
-    constructor(container) {
+    constructor(container, size, paths) {
 
-        //szkielet sceny
+        //scene skeleton
         this.axes = new AxesHelper(1000)
         this.container = container;
         this.scene = new Scene();
         this.scene.add(this.axes)
-        //tło sceny
+        this.size = size
+        this.paths = paths
+
+        //scene background
         this.scene.background = new Color(0xffffff);
 
         //światło
         this.light = new AmbientLight(0x404040, 3); // soft white light
         this.scene.add(this.light);
 
-        //managery ,renderer
+        //managers
         this.renderer = new Renderer(container);
         this.manager = new LoadingManager();
         this.manager2 = new LoadingManager();
@@ -34,7 +37,7 @@ export default class Main {
         this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb
         this.clock = new Clock()
 
-        //kamera
+        //camera
         this.width = this.renderer.domElement.width;
         this.height = this.renderer.domElement.height;
         this.camera = new Camera(75, this.width, this.height)
@@ -45,7 +48,12 @@ export default class Main {
         this.deathStar = new DeathStar(this.scene);
 
         this.skybox = new Skybox(this.scene);
-        this.box = new Box(this.scene, this.manager, true)
+        if (sessionStorage.getItem("character") === "vader") {
+            this.character = true
+        } else {
+            this.character = false
+        }
+        this.box = new Box(this.scene, this.manager, this.character, this.size, this.paths)
 
         this.render();
     }

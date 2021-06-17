@@ -1,4 +1,3 @@
-// import Animation from "./Animation"
 import Config from "./Config";
 
 const KEYS = {
@@ -63,7 +62,6 @@ export default class Keyboard {
                 Config.moveBack = true;
                 break;
         }
-
     }
 
     move() {
@@ -79,6 +77,4 @@ export default class Keyboard {
             }
         }
     }
-
-
 }

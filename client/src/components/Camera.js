@@ -11,10 +11,7 @@ export default class Camera extends PerspectiveCamera {
     }
 
     updateSize() {
-        // aspect ratio kamery
         this.aspect = this.width / this.height;
         this.updateProjectionMatrix();
     }
-
-
 }

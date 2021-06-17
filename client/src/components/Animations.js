@@ -14,7 +14,6 @@ export default class Animation {
             this.mixer.clipAction(this.animName).play().setLoop(LoopOnce, 1)
         else
             this.mixer.clipAction(this.animName).play()
-
     }
 
     update(delta) {

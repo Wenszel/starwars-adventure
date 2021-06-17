@@ -8,19 +8,20 @@ import Keyboard from './Keyboard';
 import Config from './Config';
 import Timer from './Timer';
 
-
 import vaderPath from './models/vader/tris.md2'
 import vaderTex from "./models/vader/textures.jpg"
 import r2d2Path from "./models/r2d2/tris.md2"
 import r2d2Tex from "./models/r2d2/textures.jpg"
 
 export default class Box {
-    constructor(scene, manager, modelType) {
+    constructor(scene, manager, modelType, size, paths) {
         this.box = new Group()
         this.scene = scene
         this.manager = manager
         this.modelType = modelType
         this.timer = new Timer()
+        this.size = size
+        this.paths = paths
         //MODELE
         if (this.modelType) {
             this.modelTex = vaderTex
@@ -134,7 +135,7 @@ export default class Box {
                 }
             }
             else {
-                //getting out of map
+                //getting out of the map
                 if (Config.played) {
                     this.animation.playAnim(this.stand)
                     Config.canMove = false
@@ -162,11 +163,10 @@ export default class Box {
 
     //FLOOR METHODS
     createFloor() {
-        this.floor = new Floor(this.box, 10)
-        //tablica ścieżki
-
+        this.floor = new Floor(this.box, this.size, this.paths)
+        // path array
         this.path = this.floor.returnPath()
-        // console.log(this.test.path1)
+ 
         Config.floorLoaded = true
         this.scene.add(this.box)
     }
