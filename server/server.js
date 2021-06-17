@@ -68,3 +68,27 @@ mongoose.connect(CONNECTION_URI, {
 }).catch(err => {
     console.error(err);
 })
+const ranking = require('./schemas/ranking')
+function saveScore(nick, time) {
+    new ranking({
+        nick: nick,
+        tim: score
+    }).save()
+}
+app.get("/ranking", (req, res) => {
+    ranking.find({}, (err, docs) => {
+        res.send(docs);
+    })
+});
+const config = require('./schemas/config');
+app.get("/config", (req, res) => {
+    config.findById('60cb4d1754f68217acbc5d1d').then(data => {
+        res.send({size: data.size});
+    });
+});
+const paths = require('./schemas/path');
+app.get("/paths", (req, res) => {
+    paths.find({}, (err, docs) => {
+        res.send(docs);
+    })
+})
