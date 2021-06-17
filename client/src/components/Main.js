@@ -9,16 +9,14 @@ import Renderer from './Renderer';
 import Camera from './Camera';
 
 import Box from './Box';
-import Config from './Config';
+
 
 export default class Main {
     constructor(container, size, paths) {
 
         //scene skeleton
-        this.axes = new AxesHelper(1000)
         this.container = container;
         this.scene = new Scene();
-        this.scene.add(this.axes)
         this.size = size
         this.paths = paths
 
@@ -26,7 +24,7 @@ export default class Main {
         this.scene.background = new Color(0xffffff);
 
         //światło
-        this.light = new AmbientLight(0x404040, 3); // soft white light
+        this.light = new AmbientLight(0x404040, 3);
         this.scene.add(this.light);
 
         //managers
@@ -35,14 +33,14 @@ export default class Main {
         this.manager2 = new LoadingManager();
 
         this.stats = new Stats();
-        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb
+        this.stats.showPanel(0);
         this.clock = new Clock()
 
         //camera
         this.width = this.renderer.domElement.width;
         this.height = this.renderer.domElement.height;
         this.camera = new Camera(75, this.width, this.height)
-        this.camera.position.set(10, 50, 10)
+        this.camera.position.set(-600, 1100, 0)
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
         // DeathStar model
@@ -60,6 +58,7 @@ export default class Main {
     }
 
     render() {
+        console.log(this.camera.position)
         var delta = this.clock.getDelta();
         this.box.update(delta)
         if (this.deathStar.isLaserOn) {
