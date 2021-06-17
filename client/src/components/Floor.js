@@ -4,12 +4,16 @@ import {
 import Config from './Config';
 import Paths from './Paths';
 export default class Floor {
-    constructor(box, size) {
+    constructor(box, size, paths) {
         this.box = box
         this.size = size
         this.cubesArr = []
         this.pathArr = []
         this.paths = Paths
+        this.dbPaths = paths
+        this.paths.path1 = this.dbPaths.path1
+        this.paths.path2 = this.dbPaths.path2
+        this.paths.path3 = this.dbPaths.path3
         this.pathNumber = Math.floor(Math.random() * 3);
         for (let i = 0; i < this.size; i++) {
             for (let j = 0; j < this.size; j++) {
